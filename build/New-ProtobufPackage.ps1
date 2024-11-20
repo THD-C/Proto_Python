@@ -1,3 +1,7 @@
+param(
+    $Version
+)
+
 New-Variable -Name "PROTO_REPO" -Value "https://github.com/THD-C/Protocol.git" -Option ReadOnly -Scope Script -Force
 New-Variable -Name "PROTO_REPO_PATH" -Value "./Protocol" -Option ReadOnly -Scope Script -Force
 New-Variable -Name "PROTO_PATH" -Value "./Protocol/proto" -Option ReadOnly -Scope Script -Force
