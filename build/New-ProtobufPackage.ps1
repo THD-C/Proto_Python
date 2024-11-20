@@ -69,11 +69,12 @@ function New-MainInitFiles {
         $ProtoDirs
     )
     $InitFilePath = "$ROOT_PACKAGE_DIR/__init__.py"
+    $RootDirName = $ROOT_PACKAGE_DIR.Split("/")[-1]
     if ((Test-Path -Path $InitFilePath)) {
         Remove-Item -Path $InitFilePath -Force
     }
     foreach ($dir in $ProtoDirs) {
-        "import $dir" | Out-File -FilePath $InitFilePath -Append
+        "import $RootDirName.$dir" | Out-File -FilePath $InitFilePath -Append
     }
 }
 function Update-Version {
