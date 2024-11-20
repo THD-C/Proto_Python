@@ -6,6 +6,7 @@ New-Variable -Name "PROTO_REPO" -Value "https://github.com/THD-C/Protocol.git" -
 New-Variable -Name "PROTO_REPO_PATH" -Value "./Protocol" -Option ReadOnly -Scope Script -Force
 New-Variable -Name "PROTO_PATH" -Value "./Protocol/proto" -Option ReadOnly -Scope Script -Force
 New-Variable -Name "ROOT_PACKAGE_DIR" -Value "./THDC_PROTO" -Option ReadOnly -Scope Script -Force
+New-Variable -Name "SETUP_CONFIG_FILE" -Value "./cfg.py" -Option ReadOnly -Scope Script -Force
 
 function Invoke-Main {
     Set-PythonEnv
@@ -15,6 +16,7 @@ function Invoke-Main {
     Remove-ProtobufRepo
     New-InitFilesInSubDirs -ProtoDirs $ProtoDirs
     New-MainInitFiles -ProtoDirs $ProtoDirs
+    Update-Version
 }
 function Set-PythonEnv {
     pip install -r ./build/requirements.txt
@@ -73,6 +75,9 @@ function New-MainInitFiles {
     foreach ($dir in $ProtoDirs) {
         "import $dir" | Out-File -FilePath $InitFilePath -Append
     }
+}
+function Update-Version {
+    "version = `"$Version`"" | Out-File -FilePath $SETUP_CONFIG_FILE -Force
 }
 
 Invoke-Main
