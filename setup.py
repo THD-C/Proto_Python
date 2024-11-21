@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 import cfg
 setup(
-    name="THDc_gRPC",
+    name="THDC_PROTO",
     version=cfg.version,
     packages=find_packages(),
     author="THDC",
