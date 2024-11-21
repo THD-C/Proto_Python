@@ -14,9 +14,8 @@ function Invoke-Main {
     Get-ProtobufRepo
     $ProtoDirs = Invoke-ProtobufCompiler
     Remove-ProtobufRepo
-    # New-InitFilesInSubDirs -ProtoDirs $ProtoDirs
+    New-InitFilesInSubDirs -ProtoDirs $ProtoDirs
     New-MainInitFiles -ProtoDirs $ProtoDirs
-    Update-Version
 }
 function Set-PythonEnv {
     pip install -r ./build/requirements.txt
@@ -64,7 +63,7 @@ function New-InitFilesInSubDirs {
             Remove-Item -Path $InitFilePath -Force
         }
         Get-ChildItem -Path "$RootDirName/$dir" -File | ForEach-Object {
-            "from .$($_.Name.Split(".")[0]) import *" | Out-File -FilePath $InitFilePath -Append
+            "from $RootDirName.$dir.$($_.Name.Split(".")[0]) import *" | Out-File -FilePath $InitFilePath -Append
         }
     }
 }
@@ -78,20 +77,8 @@ function New-MainInitFiles {
         Remove-Item -Path $InitFilePath -Force
     }
     foreach ($dir in $ProtoDirs) {
-        "from .$dir import *" | Out-File -FilePath $InitFilePath -Append
+        "import $RootDirName.$dir" | Out-File -FilePath $InitFilePath -Append
     }
-
-    foreach ($dir in $ProtoDirs) {
-        if ((Test-Path -Path $InitFilePath)) {
-            Remove-Item -Path $InitFilePath -Force
-        }
-        Get-ChildItem -Path "$RootDirName/$dir" -File | ForEach-Object {
-            "from .$($_.Name.Split(".")[0]) import *" | Out-File -FilePath $InitFilePath -Append
-        }
-    }
-}
-function Update-Version {
-    "version = `"$Version`"" | Out-File -FilePath $SETUP_CONFIG_FILE -Force
 }
 
 Invoke-Main
