@@ -14,7 +14,7 @@ function Invoke-Main {
     Get-ProtobufRepo
     $ProtoDirs = Invoke-ProtobufCompiler
     Remove-ProtobufRepo
-    New-InitFilesInSubDirs -ProtoDirs $ProtoDirs
+    # New-InitFilesInSubDirs -ProtoDirs $ProtoDirs
     New-MainInitFiles -ProtoDirs $ProtoDirs
     Update-Version
 }
@@ -79,6 +79,15 @@ function New-MainInitFiles {
     }
     foreach ($dir in $ProtoDirs) {
         "from .$dir import *" | Out-File -FilePath $InitFilePath -Append
+    }
+
+    foreach ($dir in $ProtoDirs) {
+        if ((Test-Path -Path $InitFilePath)) {
+            Remove-Item -Path $InitFilePath -Force
+        }
+        Get-ChildItem -Path "$RootDirName/$dir" -File | ForEach-Object {
+            "from .$($_.Name.Split(".")[0]) import *" | Out-File -FilePath $InitFilePath -Append
+        }
     }
 }
 function Update-Version {
