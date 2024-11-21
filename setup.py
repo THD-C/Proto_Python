@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 import cfg
 setup(
-    name="THDC_PROTO",
+    name="THDCgRPC",
     version=cfg.version,
     packages=find_packages(),
     author="THDC",
@@ -12,7 +12,7 @@ setup(
     url="https://github.com/THD-C/Protocol.git",
     python_requires='>=3.10',
     package_data={
-        '': ['THDC_PROTO/**/*'],
+        '': ['THDCgRPC/**/*'],
     },
     include_package_data=True,
 )

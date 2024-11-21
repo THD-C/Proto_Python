@@ -5,7 +5,7 @@ param(
 New-Variable -Name "PROTO_REPO" -Value "https://github.com/THD-C/Protocol.git" -Option ReadOnly -Scope Script -Force
 New-Variable -Name "PROTO_REPO_PATH" -Value "./Protocol" -Option ReadOnly -Scope Script -Force
 New-Variable -Name "PROTO_PATH" -Value "./Protocol/proto" -Option ReadOnly -Scope Script -Force
-New-Variable -Name "ROOT_PACKAGE_DIR" -Value "./THDC_PROTO" -Option ReadOnly -Scope Script -Force
+New-Variable -Name "ROOT_PACKAGE_DIR" -Value "./THDCgRPC" -Option ReadOnly -Scope Script -Force
 New-Variable -Name "SETUP_CONFIG_FILE" -Value "./cfg.py" -Option ReadOnly -Scope Script -Force
 
 function Invoke-Main {
