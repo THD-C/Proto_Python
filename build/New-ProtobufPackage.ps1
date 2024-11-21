@@ -1,5 +1,5 @@
 param(
-    $Version
+    $Version = "main"
 )
 
 New-Variable -Name "PROTO_REPO" -Value "https://github.com/THD-C/Protocol.git" -Option ReadOnly -Scope Script -Force
@@ -22,7 +22,11 @@ function Set-PythonEnv {
     pip install -r ./build/requirements.txt
 }
 function Get-ProtobufRepo {
+    $ScriptRoot = (Get-Location).Path
     git clone $PROTO_REPO
+    Set-Location -Path $PROTO_REPO_PATH
+    git checkout "$Version"
+    Set-Location -Path $ScriptRoot
 }
 function Invoke-ProtobufCompiler {
     $ProtoFiles = (Get-ChildItem -Path $PROTO_REPO_PATH -Filter *.proto -Recurse)
