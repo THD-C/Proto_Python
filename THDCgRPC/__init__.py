@@ -1,4 +1,4 @@
-import THDCgRPC.order
-import THDCgRPC.transaction
-import THDCgRPC.user
-import THDCgRPC.wallet
+import thdcgrpc.order
+import thdcgrpc.transaction
+import thdcgrpc.user
+import thdcgrpc.wallet
