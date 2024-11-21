@@ -64,7 +64,7 @@ function New-InitFilesInSubDirs {
             Remove-Item -Path $InitFilePath -Force
         }
         Get-ChildItem -Path "$RootDirName/$dir" -File | ForEach-Object {
-            "from .$RootDirName.$dir.$($_.Name.Split(".")[0]) import *" | Out-File -FilePath $InitFilePath -Append
+            "from .$($_.Name.Split(".")[0]) import *" | Out-File -FilePath $InitFilePath -Append
         }
     }
 }
@@ -78,7 +78,7 @@ function New-MainInitFiles {
         Remove-Item -Path $InitFilePath -Force
     }
     foreach ($dir in $ProtoDirs) {
-        "from .$RootDirName.$dir import *" | Out-File -FilePath $InitFilePath -Append
+        "from .$dir import *" | Out-File -FilePath $InitFilePath -Append
     }
 }
 function Update-Version {
