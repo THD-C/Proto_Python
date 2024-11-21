@@ -13,7 +13,7 @@ setup(
     url="https://github.com/THD-C/Proto_Python.git",
     python_requires='>=3.10',
     package_data={
-        '': ['thdcgrpc/**/*'],
+        '': ['*'],
     },
     include_package_data=True,
 )
